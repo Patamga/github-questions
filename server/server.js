@@ -10,24 +10,27 @@ import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
 
+import issueRoutes from './routes/api/issue.api'
+import mongoose from './services/mongoose'
+
 const Root = () => ''
 
-try {
-  // eslint-disable-next-line import/no-unresolved
-  // ;(async () => {
-  //   const items = await import('../dist/assets/js/root.bundle')
-  //   console.log(JSON.stringify(items))
+// try {
+//   // eslint-disable-next-line import/no-unresolved
+//   // ;(async () => {
+//   //   const items = await import('../dist/assets/js/root.bundle')
+//   //   console.log(JSON.stringify(items))
 
-  //   Root = (props) => <items.Root {...props} />
-  //   console.log(JSON.stringify(items.Root))
-  // })()
-  console.log(Root)
-} catch (ex) {
-  console.log(' run yarn build:prod to enable ssr')
-}
+//   //   Root = (props) => <items.Root {...props} />
+//   //   console.log(JSON.stringify(items.Root))
+//   // })()
+//   console.log(Root)
+// } catch (ex) {
+//   console.log(' run yarn build:prod to enable ssr')
+// }
 
 let connections = []
-
+mongoose.connect()
 const port = process.env.PORT || 8090
 const server = express()
 
@@ -39,66 +42,39 @@ const middleware = [
   cookieParser()
 ]
 middleware.forEach((it) => server.use(it))
+server.use('/api/v1/issue', issueRoutes)
 
-// Brewery component start
-const BASE_URL = 'https://sandbox-api.brewerydb.com/v2'
-
-const API_KEY = config.breweryApiKey
-const API_GOOGLE_KEY = config.googleApiKey
-const GOOGLE_MAP_URL = `https://maps.googleapis.com/maps/api/js?key=${API_GOOGLE_KEY}&v=3.exp&libraries=geometry,drawing,places`
-
-const getBeerUrl = () => `${BASE_URL}/beer/random?key=${API_KEY}`
-const getBreweryUrl = (id) => `${BASE_URL}/beer/${id}/breweries?key=${API_KEY}`
-const getBreweryData = (id) => `${BASE_URL}/brewery/${id}/locations?key=${API_KEY}`
-
-server.get('/api/v1/beer', (req, res) => {
-  axios(getBeerUrl()).then(({ data }) => {
-    res.json(data)
-  })
-})
-
-server.get('/api/v1/breweries/google_map', (req, res) => {
-  const url = { googlUrl: GOOGLE_MAP_URL }
-  res.json(url)
-})
-
-server.get('/api/v1/breweries/:id', (req, res) => {
-
-  axios(getBreweryUrl(req.params.id)).then(({ data }) => {
-    res.json(data)
-  })
-})
-server.get('/api/v1/breweries/locations/:id', (req, res) => {
-  const url =  GOOGLE_MAP_URL
-  axios(getBreweryData(req.params.id)).then(({ data }) => {
-    res.json({...data, url})
-  })
-})
-
-// Brewery component end
-// Calendar start
-
-// const CALENDAR_ID = config.calendarId
-const GOOGLE_CALENDAR_API_KEY = config.googleCalendarApiKey
-const START_DATE = '2020-06-01T00:00:00Z'
-const END_DATE = '2021-12-31T00:00:00Z'
-
-const googleCalendarUrl = (calendarId) =>
-  `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?singleEvents=true&timeMin=${START_DATE}&timeMax=${END_DATE}&key=${GOOGLE_CALENDAR_API_KEY}`
-
-server.get('/api/v1/google/calendar_events/:calendarId', async (req, res) => {
-  const id = req.params.calendarId
-  await axios(googleCalendarUrl(id))
-  .then(({ data }) => {
-    res.json(data)
-  })
-  .catch(() => {
-    res.status(500)
-  })
-  res.end()
-})
-
-// Calendar end
+const getData = async () => {
+  for (let i = 1; i <= 100; i += 1) {
+    await setTimeout(() => {
+      axios
+        .get(
+          `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&page=${i}&per_page=100'`
+        )
+        .then(({ data }) => {
+          data.items.forEach((item) => {
+            axios
+              .post('http://localhost:8000/api/v1/issue', {
+                id: item.id,
+                html_url: item.html_url,
+                title_issue: item.title,
+                state: item.state,
+                comments: item.comments,
+                created_at: item.created_at,
+                updated_at: item.updated_at,
+                closed_at: item.closed_at,
+                body: item.body
+              })
+              // .then((response) => response.status)
+              .catch((err) => console.warn('server api', err))
+          })
+        })
+        .catch((error) => {
+          console.warn('github api', error)
+        })
+    }, 7000 * i)
+  }
+}
 
 
 server.use('/api/', (req, res) => {
