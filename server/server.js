@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
 
-import issueRoutes from './routes/api/issue.api'
+import issueRoutes from './routes/issue.api'
 import mongoose from './services/mongoose'
 
 const Root = () => ''
@@ -42,6 +42,7 @@ const middleware = [
   cookieParser()
 ]
 middleware.forEach((it) => server.use(it))
+
 server.use('/api/v1/issue', issueRoutes)
 
 const getData = async () => {
