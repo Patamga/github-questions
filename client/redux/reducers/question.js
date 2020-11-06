@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const GET_ISSUES = 'GET_ISSUES'
 
 const initialState = {
@@ -16,11 +18,10 @@ export default (state = initialState, action) => {
 
 export function getIssues() {
   return (dispatch) => {
-    fetch('/api/v1/issue')
-      .then((res) => res.json())
-      .then(({ data }) => {
-        console.log('dta', data)
-        dispatch({ type: GET_ISSUES, issues: data })
+    axios
+      .get('/api/v1/issue')
+      .then(({data}) => {
+        dispatch({ type: GET_ISSUES, issues: data.data })
       })
       .catch((err) => console.warn('server api', err))
   }

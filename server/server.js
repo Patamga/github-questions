@@ -64,7 +64,7 @@ const getData = async () => {
                 closed_at: item.closed_at,
                 body: item.body
               })
-              // .then((response) => response.status)
+              .then((response) => response.status)
               .catch((err) => console.warn('server api', err))
           })
         })
@@ -74,6 +74,17 @@ const getData = async () => {
     }, 7000 * i)
   }
 }
+
+const callNTimes = (time) => {
+  const callFn = () => {
+    getData()
+    setTimeout(callFn, time)
+  }
+  setTimeout(callFn, time)
+}
+callNTimes(1000*360*2)
+
+
 
 // getData()
 
