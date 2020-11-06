@@ -65,20 +65,6 @@ const getData = async () => {
               body: item.body
             }
             await Issue.updateOne({ id: issue.id }, { $set: issue }, { upsert: true })
-            // axios
-            //   .post('http://localhost:8087/api/v1/issue', {
-            //     id: item.id,
-            //     html_url: item.html_url,
-            //     title_issue: item.title,
-            //     state: item.state,
-            //     comments: item.comments,
-            //     created_at: item.created_at,
-            //     updated_at: item.updated_at,
-            //     closed_at: item.closed_at,
-            //     body: item.body
-            //   })
-            //   .then((response) => response.status)
-            //   .catch((err) => console.warn('server api', err))
           })
         })
         .catch((error) => {
