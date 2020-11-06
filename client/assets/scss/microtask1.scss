@@ -1,0 +1,178 @@
+
+
+$red: #f56565;
+$gray: #a0aec0;
+$yellow: #ecc94b;
+$green: #48bb78;
+$blue: #4299e1;
+$white: #ffffff;
+
+.red {
+  background-color: $red;
+}
+.yellow {
+  background: $yellow;
+}
+.green {
+  background-color: $green;
+}
+.blue {
+  background-color: $blue;
+}
+
+.task-1 {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+}
+.task-1 > div{
+  display: flex;
+  width: 33.333333%;
+  height: 100%;
+}
+.task-2 {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+.task-2 >div{
+  display: flex;
+  height: 25%;
+}
+.task-3 {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+.task-3 > div {
+  display: flex;
+  height: 25%;
+  justify-content: center;
+  align-items: center;
+}
+.task-3 > div > div {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+  align-items: center;
+}
+.task-4 {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.task-4 > div {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  justify-content: center;
+  align-items: center;
+}
+.task-4 > div > div{
+  display: flex;
+  height: 25%;
+  justify-content: center;
+  align-items: center;
+}
+.task-5 {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+.task-5 > div {
+  display: flex;
+  height: 33.333333%;
+}
+.task-5 > div > div {
+  display: flex;
+  width: 33.333333%;
+  justify-content: center;
+  align-items: center;
+}
+.task-5 > div > div.col1 {
+  width: 100px;
+  border: 1px;
+  border-style: dashed;
+  border-color: $white;
+  margin: 2px;
+}
+.task-5 > div > div.col2 {
+  width: 100%;
+  border: 1px;
+  border-style: dashed;
+  border-color: $white;
+  margin: 2px;
+}
+
+.task-6 {
+  display: flex;
+  background-color: white;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+}
+.task-6 > div {
+  display: flex;
+  margin: 2%;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  background-color: $yellow;
+  border: 1px;
+  border-style: solid;
+  border-color: $gray;
+}
+.task-7 {
+  height: 100vh;
+  width: 100%;
+}
+.task-7 > div {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.task-8 {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.task-8 > div {
+  display: flex;
+  height: 100px;
+  width: 100px;
+  background-color: black;
+}
+.task-9 {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.task-9 > div {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 300px;
+  background-color: $yellow;
+
+}
+.task-9 > div > div {
+  display: flex;
+  height: 33.333333%;
+}
+.task-9 > div > div > div{
+  width: 33.333333%;
+  background-color: $gray;
+}
+.row1 {justify-content: flex-start;};
+.row2 {justify-content: center;};
+.row3 {justify-content: flex-end;};

@@ -1,0 +1,42 @@
+
+
+td {
+  text-align: center;
+}
+.pagination {
+  display: flex;
+  margin: 20px;
+  justify-content: space-evenly;
+}
+.first-page-btn,
+.previous-page-btn,
+.next-page-btn,
+.last-page-btn {
+  border: solid 1px;
+  border-color: black;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border-width: 1px;
+  border-radius: 0.5rem!important;
+  background-color: white;
+
+}
+.first-page-btn:hover,
+.previous-page-btn:hover,
+.next-page-btn:hover,
+.last-page-btn:hover {
+  background-color: lightskyblue;
+}
+
+.first-page-btn:disabled,
+.previous-page-btn:disabled,
+.next-page-btn:disabled,
+.last-page-btn:disabled {
+  background-color: transparent;
+  pointer-events: none;
+}
+.rotate {
+  animation: round($number: 360);
+}

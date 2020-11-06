@@ -1,0 +1,49 @@
+/* purgecss start ignore */
+@tailwind  base;
+@tailwind  components;
+@import "./microtask1.scss";
+@import "./microtask3.scss";
+@import "./brewery.scss";
+@import "./clock.scss";
+@import "./calendarBig.scss";
+
+
+
+/* purgecss end ignore */
+
+@tailwind utilities;
+
+.relative {
+  position: relative!important;
+}
+
+h1 {
+  font-weight: bolder;
+  margin-top: 10px;;
+}
+.link {
+  color: #2763bd;
+}
+.link:hover {
+  color: #6b46c1;
+}
+a:hover {
+  color: #6b46c1;
+}
+Link {
+  color: #2763bd;
+}
+.widthLeftBar {
+  width: 256px;
+  max-width: 256px;
+  min-width: 256px;
+  margin-right: 3px;
+}
+// .bz {
+//   font-family:  "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+// }
+
+
+
+
+
