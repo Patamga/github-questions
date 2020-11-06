@@ -7,7 +7,7 @@ const List = () => {
   const list = useSelector((state) => state.question.issues)
   console.log('list', list)
   const urlParse = (str) => {
-    const re = new RegExp('([a-zA-Z0-9-.]+)/([a-zA-Z0-9-.]+)((/issues)|(/pull))')
+    const re = /(\S+)\/(\S+)((\/issues)|(\/pull))/
     const [all, user, repo] = str.match(re)
     return { all, user, repo }
   }
@@ -16,11 +16,14 @@ const List = () => {
     <div className="bg-gray-200 m-0 px-2 py-4">
       {console.log('is', list)}
       {list.map((question) => {
+        console.log('is', question)
         return (
           <div key={question.id} className=" mb-4 border-2 border-solid border-gray-400 bg-white ">
             <div className=" flex flex-row ">
-              <div className="flex text-blue-700 pl-4 pt-2 w-full border-r-2 border-gray-400 content-center">
-                <a href={question.html_url} className="">
+              <div className="flex text-sm text-gray-600 pl-4 pt-2 w-full border-r-2 border-gray-400 content-center">
+                <span>Question: </span>
+                <a href={question.html_url} className="  text-blue-700 ">
+                  {console.log(question.html_url)}
                   {question.title_issue}
                 </a>
               </div>
@@ -34,9 +37,9 @@ const List = () => {
                 <span>
                   Project: <span className="text-gray-800">{urlParse(question.html_url).repo}</span>
                 </span>
-                <span>
+                {/* <span>
                   User: <span className="text-gray-800">{urlParse(question.html_url).user}</span>
-                </span>
+                </span> */}
               </div>
               <div className="flex flex-col pl-2 py-2 w-full border-r-2 border-gray-400">
                 <span>

@@ -12,6 +12,7 @@ import Html from '../client/html'
 
 import issueRoutes from './routes/issue.api'
 import mongoose from './services/mongoose'
+import Issue from './models/issue'
 
 const Root = () => ''
 
@@ -44,28 +45,40 @@ middleware.forEach((it) => server.use(it))
 
 server.use('/api/v1/issue', issueRoutes)
 
-const apiUrl = `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&page=2&per_page=100'`
+const getUrl = (i) => `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&per_page=100&page=${i}`
 const getData = async () => {
-  for (let i = 1; i <= 100; i += 1) {
-    await setTimeout(() => {
+  for (let i = 1; i <= 10; i += 1) {
+    setTimeout(() => {
       axios
-        .get(apiUrl)
+        .get(getUrl(i))
         .then(({ data }) => {
-          data.items.forEach((item) => {
-            axios
-              .post('http://localhost:8087/api/v1/issue', {
-                id: item.id,
-                html_url: item.html_url,
-                title_issue: item.title,
-                state: item.state,
-                comments: item.comments,
-                created_at: item.created_at,
-                updated_at: item.updated_at,
-                closed_at: item.closed_at,
-                body: item.body
-              })
-              .then((response) => response.status)
-              .catch((err) => console.warn('server api', err))
+          data.items.forEach(async (item) => {
+            const issue = {
+              id: item.id,
+              html_url: item.html_url,
+              title_issue: item.title,
+              state: item.state,
+              comments: item.comments,
+              created_at: item.created_at,
+              updated_at: item.updated_at,
+              closed_at: item.closed_at,
+              body: item.body
+            }
+            await Issue.updateOne({ id: issue.id }, { $set: issue }, { upsert: true })
+            // axios
+            //   .post('http://localhost:8087/api/v1/issue', {
+            //     id: item.id,
+            //     html_url: item.html_url,
+            //     title_issue: item.title,
+            //     state: item.state,
+            //     comments: item.comments,
+            //     created_at: item.created_at,
+            //     updated_at: item.updated_at,
+            //     closed_at: item.closed_at,
+            //     body: item.body
+            //   })
+            //   .then((response) => response.status)
+            //   .catch((err) => console.warn('server api', err))
           })
         })
         .catch((error) => {
@@ -83,10 +96,6 @@ const callNTimes = (time) => {
   setTimeout(callFn, time)
 }
 callNTimes(1000*360*2)
-
-
-
-// getData()
 
 server.use('/api/', (req, res) => {
   res.status(404)
@@ -136,3 +145,5 @@ if (config.isSocketsEnabled) {
   echo.installHandlers(app, { prefix: '/ws' })
 }
 console.log(`Serving at http://localhost:${port}`)
+
+getData()
