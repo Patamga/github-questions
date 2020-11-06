@@ -33,7 +33,6 @@ let connections = []
 mongoose.connect()
 const port = process.env.PORT || 8090
 const server = express()
-
 const middleware = [
   cors(),
   express.static(path.resolve(__dirname, '../dist/assets')),
@@ -45,17 +44,16 @@ middleware.forEach((it) => server.use(it))
 
 server.use('/api/v1/issue', issueRoutes)
 
+const apiUrl = `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&page=2&per_page=100'`
 const getData = async () => {
   for (let i = 1; i <= 100; i += 1) {
     await setTimeout(() => {
       axios
-        .get(
-          `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&page=${i}&per_page=100'`
-        )
+        .get(apiUrl)
         .then(({ data }) => {
           data.items.forEach((item) => {
             axios
-              .post('http://localhost:8000/api/v1/issue', {
+              .post('http://localhost:8087/api/v1/issue', {
                 id: item.id,
                 html_url: item.html_url,
                 title_issue: item.title,
@@ -77,6 +75,7 @@ const getData = async () => {
   }
 }
 
+// getData()
 
 server.use('/api/', (req, res) => {
   res.status(404)
