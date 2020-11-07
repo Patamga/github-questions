@@ -4,7 +4,6 @@ import { setLimit, setSkip } from '../redux/reducers/question'
 
 const Pagination = (props) => {
   const dispatch = useDispatch()
-  console.log('propsP', props.skip, props.limit)
   return (
     <section className="flex justify-center">
       <button
@@ -33,7 +32,7 @@ const Pagination = (props) => {
       </button>
 
       <div>
-        Показывать по:
+        issues per page
         <button
           type="button"
           onClick={() => dispatch(setLimit(5))}

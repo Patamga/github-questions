@@ -11,6 +11,7 @@ const Dummy = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getIssues(limit, skip))
+    window.scrollTo(0, 0)
   }, [skip, limit])
 
   return (
