@@ -16,11 +16,11 @@ export default (state = initialState, action) => {
   }
 }
 
-export function getIssues() {
+export function getIssues(limit, skip) {
   return (dispatch) => {
     axios
-      .get('/api/v1/issue')
-      .then(({data}) => {
+      .get(`/api/v1/issue?limit=${limit}&skip=${skip}`)
+      .then(({ data }) => {
         dispatch({ type: GET_ISSUES, issues: data.data })
       })
       .catch((err) => console.warn('server api', err))

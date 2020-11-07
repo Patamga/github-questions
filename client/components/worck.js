@@ -5,3 +5,6 @@
 как сортировать в базе
 как делать выборку постранично
 как запускать функцию через n часов
+
+mongodb+srv://patamga:mari4ir@cluster0.llpqe.mongodb.net/github-questions
+от чата mongodb+srv://patamga:patamga@cluster0.8j4rx.mongodb.net/Autorisation?retryWrites=true&w=majority
