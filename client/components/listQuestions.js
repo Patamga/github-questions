@@ -13,9 +13,8 @@ const List = (props) => {
     <div key={props.id} className=" mb-4 border-2 border-solid border-gray-400 bg-white ">
       <div className=" flex flex-row ">
         <div className="flex text-sm text-gray-600 pl-4 pt-2 w-full border-r-2 border-gray-400 content-center">
-          <span>Question: </span>
-          <a href={props.html_url} className="  text-blue-700 ">
-            {console.log(props.html_url)}
+          <span>Question: &nbsp;</span>
+          <a href={props.html_url} className="  text-blue-700 hover:text-blue-500">
             {props.title_issue}
           </a>
         </div>
