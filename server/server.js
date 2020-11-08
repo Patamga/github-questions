@@ -45,9 +45,10 @@ middleware.forEach((it) => server.use(it))
 
 server.use('/api/v1/issue', issueRoutes)
 
-const getUrl = (i) => `https://api.github.com/search/issues?q=react+label:question+language:javascript+state:open&per_page=100&page=${i}`
+
+const getUrl = (i) => `https://api.github.com/search/issues?q=react+js+label:question+language:javascript+state:open&per_page=100&page=${i}`
 const getData = async () => {
-  for (let i = 1; i <= 10; i += 1) {
+  for (let i = 1; i <= 1; i += 1) {
     setTimeout(() => {
       axios
         .get(getUrl(i))
@@ -70,9 +71,10 @@ const getData = async () => {
         .catch((error) => {
           console.warn('github api', error)
         })
-    }, 7000 * i)
+    }, 8000 * i)
   }
 }
+
 
 const callNTimes = (time) => {
   const callFn = () => {
@@ -133,4 +135,4 @@ if (config.isSocketsEnabled) {
 }
 console.log(`Serving at http://localhost:${port}`)
 
-getData()
+// getData()

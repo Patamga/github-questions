@@ -17,3 +17,9 @@ exports.getAll = async (req, res) => {
     return res.status(500).json(err)
   }
 }
+
+exports.getCount = async (req,res) => {
+  const count = await Issue.countDocuments({})
+  return res.json({ data: count })
+
+}
