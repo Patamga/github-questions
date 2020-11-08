@@ -5,10 +5,11 @@ import { setLimit } from '../redux/reducers/question'
 const Pagination = (props) => {
   const dispatch = useDispatch()
   const totalPage = Math.ceil(props.countIssues / props.limit)
+  const page = Math.ceil(props.skip / props.limit + 1)
   return (
     <div className="flex justify-center text-sm text-gray-700 pb-4">
       <div className="px-4">
-        Page: <span className="text-gray-900 font-bold">{props.skip / props.limit + 1}</span>
+        Page: <span className="text-gray-900 font-bold">{page}</span>
       </div>
       <div className="px-4">
         Total pages: <span className="text-gray-900 font-bold">{totalPage}</span>
