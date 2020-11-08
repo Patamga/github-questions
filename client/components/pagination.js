@@ -31,6 +31,7 @@ const Pagination = (props) => {
         type="button"
         onClick={() => dispatch(setSkip(props.skip + props.limit))}
         className=" px-3 py-1 mr-10 border-2 border-gray-400 bg-gray-100 hover:bg-white text-blue-700 hover:text-blue-500"
+        disabled={props.skip >= props.countIssues - props.limit}
       >
         Next
       </button>
